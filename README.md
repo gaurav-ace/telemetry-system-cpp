@@ -73,4 +73,23 @@ telemetry-system-cpp/
 
 
 
+phase 1.4 : 
+Application Process (Agent)
+────────────────────────────────
+MetricRegistry
+   |
+TelemetryService (thread)
+   |
+GrpcExporter (client)
+   |
+gRPC call
+────────────────────────────────
+Telemetry Server
+   |
+Receive metrics
+   |
+Verify / log / print
+
+
+
 

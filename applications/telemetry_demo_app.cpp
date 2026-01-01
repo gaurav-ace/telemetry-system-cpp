@@ -1,8 +1,12 @@
 #include "logger/AsyncLogger.h"
-#include "telemetry/log_exporter.h"
+#include "telemetry/grpc_exporter.h"
 #include "telemetry/telemetry_service.h"
 #include "telemetry/metric_registry.h"
 #include <thread>
+
+#include <memory>
+#include <grpcpp/grpcpp.h>
+
 
 int main() {
     // Shared logger
@@ -16,7 +20,15 @@ int main() {
     auto cpu = registry.gauge("cpu_usage");
 
     // Exporter
-    auto exporter = std::make_shared<LogExporter>(logger);
+    //auto exporter = std::make_shared<LogExporter>(logger);
+
+    auto channel = grpc::CreateChannel(
+       "localhost:50051",
+       grpc::InsecureChannelCredentials()
+    );
+
+    auto exporter = std::make_shared<GrpcExporter>(channel);
+
 
     // Telemetry service: snapshot every 1 second
     TelemetryService telemetry(
