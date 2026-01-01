@@ -91,5 +91,7 @@ Receive metrics
 Verify / log / print
 
 
+Built a C++ telemetry system with non-blocking metric updates, periodic snapshotting, and gRPC-based export to a remote collector, using a clean producer–consumer architecture and pluggable transport
+
 
 
